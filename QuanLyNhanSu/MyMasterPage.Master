@@ -1,0 +1,222 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MyMasterPage.master.cs" Inherits="QuanLyNhanSu.MyMasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>QuanLyNhanSu</title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        .auto-style2 {
+            width: 576px;
+        }
+        .auto-style3 {
+            width: 134px;
+        }
+        .newStyle12 {
+        }
+        .auto-style4 {
+            text-align: center;
+        }
+        .auto-style5 {
+            width: 144px;
+        }
+        .auto-style6 {
+            width: 100%;
+            height: 69px;
+        }
+        .auto-style7 {
+            text-align: center;
+            height: 23px;
+        }
+        .auto-style8 {
+            width: 100%;
+            height: 30px;
+        }
+        .auto-style9 {
+            width: 221%;
+            height: 126px;
+        }
+        .auto-style10 {
+            width: 128px;
+        }
+        .auto-style11 {
+            width: 216%;
+            height: 128px;
+        }
+        .auto-style12 {
+            color: #0033CC;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/myjs.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <asp:Timer ID="Timer1" runat="server">
+        </asp:Timer>
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [TaiKhoan]"></asp:SqlDataSource>
+
+        <table class="auto-style1">
+            <tr>
+                <td class="auto-style3">
+                    <asp:LoginView ID="LoginView1" runat="server">
+                        <AnonymousTemplate>
+                            <asp:Panel ID="Panel1" runat="server" BackColor="#99FFCC" Height="200px" Width="300px">
+                                <table class="auto-style1">
+                                    <tr>
+                                        <td class="auto-style4">
+                                            <asp:Label ID="Label1" runat="server" Text="Đăng nhập"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table class="auto-style1">
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="Label2_TenDangNhap" runat="server" Text="Tên Đăng nhập"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="TextBox1_TenDangNhap" runat="server"></asp:TextBox>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:Label ID="Label3_MatKhau" runat="server" Text="Mật khẩu"></asp:Label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="TextBox2_MatKhau" runat="server" ValidationGroup="MatKhau"></asp:TextBox>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="auto-style6">
+                                    <tr>
+                                        <td class="auto-style5">
+                                            <table class="auto-style1">
+                                                <tr>
+                                                    <td>
+                                                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/TaoTaiKhoan.aspx">Tạo tài khoản</asp:HyperLink>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/LayLaiMatKhau.aspx">Lấy lại mật khẩu</asp:HyperLink>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/TroGiup.aspx">Trợ giúp</asp:HyperLink>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td class="auto-style4">
+                                            <asp:Button ID="Button1_DangNhap" runat="server" Text="Đăng nhập ngay" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="auto-style8">
+                                    <tr>
+                                        <td class="auto-style7">
+                                            <asp:Label ID="lblMessage" runat="server" Font-Bold="True" Font-Overline="True" ForeColor="Red" Text="Label" Visible="False"></asp:Label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br />
+                            </asp:Panel>
+                        </AnonymousTemplate>
+                        <RoleGroups>
+                            <asp:RoleGroup Roles="ADMIN">
+                                <ContentTemplate>
+                                    <table class="auto-style11">
+                                        <tr>
+                                            <td class="auto-style10">
+                                                <asp:LoginName ID="LoginName5" runat="server" />
+                                                , Chào mừng trở lại!</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="auto-style10">
+                                                <asp:Label ID="Label2" runat="server" BackColor="#CCCCCC" Font-Bold="True" Font-Size="Medium" ForeColor="Red" Text="Trang của ADMIN"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <asp:Button ID="Button1_DangXuatADMIN" runat="server" Text="Đăng xuất" />
+                                    <br />
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                            <asp:RoleGroup Roles="USER">
+                                <ContentTemplate>
+                                    <table class="auto-style9">
+                                        <tr>
+                                            <td>
+                                                <asp:LoginName ID="LoginName6" runat="server" />
+                                                , Chào mừng quay lại!</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="auto-style12">&nbsp;<asp:Label ID="Label2" runat="server" BackColor="#CCCCCC" Font-Bold="True" Font-Size="Medium" Text="Trang của USER"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <asp:Button ID="Button1_DangXuatUSER" runat="server" Text="Đăng xuất" />
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                        </RoleGroups>
+                    </asp:LoginView>
+                </td>
+                <td>
+                    <asp:Image ID="Image1" runat="server" Height="200px" ImageUrl="https://img.freepik.com/free-vector/hand-drawn-business-people-illustration_52683-66661.jpg" Width="280px" TabIndex="1" />
+                    <asp:Image ID="Image2" runat="server" Height="200px" ImageUrl="https://img.freepik.com/premium-vector/illustration-vector-graphic-cartoon-character-company_516790-299.jpg" Width="300px" TabIndex="1" />
+                    <asp:Image ID="Image3" runat="server" Height="200px" ImageUrl="https://img.freepik.com/free-vector/hand-drawn-business-communication-illustration_23-2149158973.jpg?semt=ais_hybrid" Width="268px" TabIndex="1" />
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style3">
+                    <asp:Menu ID="Menu2" runat="server" BackColor="White" CssClass="auto-style2" DynamicHorizontalOffset="2" Font-Bold="True" Font-Names="Verdana" Font-Size="10px" ForeColor="#666666" ItemWrap="True" StaticSubMenuIndent="10px" Width="300px">
+                        <DynamicHoverStyle BackColor="#666666" ForeColor="White" />
+                        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                        <DynamicMenuStyle BackColor="#E3EAEB" />
+                        <DynamicSelectedStyle BackColor="#1C5E55" />
+                        <Items>
+                            <asp:MenuItem Text="Điểm danh" Value="1" NavigateUrl="~/DiemDanh.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Nộp báo cáo" Value="2" NavigateUrl="~/NopBaoCao.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Xem danh sách điểm danh tháng" Value="3" NavigateUrl="~/DanhSachDiemDanh.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Xem thông tin lương" Value="4" NavigateUrl="~/ThongTinLuong.aspx"></asp:MenuItem>
+                            <asp:MenuItem Text="Thông tin cá nhân" Value="5" NavigateUrl="~/ThongTinCaNhan.aspx"></asp:MenuItem>
+                        </Items>
+                        <LevelMenuItemStyles>
+                            <asp:MenuItemStyle BackColor="White" BorderColor="#FF0066" BorderStyle="Solid" Font-Underline="False" Height="30px" HorizontalPadding="10px" ItemSpacing="10px" VerticalPadding="10px" Width="200px" />
+                        </LevelMenuItemStyles>
+                        <StaticHoverStyle BackColor="#666666" ForeColor="White" />
+                        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+                        <StaticSelectedStyle BackColor="#1C5E55" />
+                    </asp:Menu>
+                </td>
+                <td>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <asp:Image ID="Image4" runat="server" Height="200px" ImageUrl="https://e-magazine.asiamedia.vn/wp-content/uploads/2022/02/cong-ty-samsung.jpg" Width="270px" />
+                            <asp:Image ID="Image5" runat="server" Height="200px" ImageUrl="https://img.timviec.com.vn/2020/10/thi-gsat-6.jpg" Width="283px" />
+                            <asp:Image ID="Image6" runat="server" Height="200px" ImageUrl="https://cdn.img.kevesko.vn/images/sharing/article/vie/20599828.jpg?110297491673782268" Width="294px" />
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+
+
+    </form>
+</body>
+</html>
